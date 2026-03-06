@@ -35,7 +35,7 @@ def session_config():
     return {
         "type": "session.update",
         "session": {
-            "instructions": _load_instructions,
+            "instructions": _load_instructions(),
             "turn_detection": {
                 "type": "azure_semantic_vad",
                 "threshold": 0.3,
