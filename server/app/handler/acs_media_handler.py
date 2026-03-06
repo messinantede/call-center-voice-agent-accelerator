@@ -13,6 +13,16 @@ from websockets.asyncio.client import connect as ws_connect
 from websockets.typing import Data
 
 from .ambient_mixer import AmbientMixer
+from pathlib import Path
+
+
+def _load_instructions():
+    instructions_file = Path("instructions.txt")
+    if instructions_file.is_file():
+        return instructions_file.read_text().strip()
+    return ""
+
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +35,7 @@ def session_config():
     return {
         "type": "session.update",
         "session": {
-            "instructions": "You are a helpful AI assistant responding in natural, engaging language.",
+            "instructions": _load_instructions,
             "turn_detection": {
                 "type": "azure_semantic_vad",
                 "threshold": 0.3,
